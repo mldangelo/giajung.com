@@ -16,7 +16,6 @@ export default function Home() {
     <div className="bg-white">
       <Head>
         <title>Learn About Gia</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       
       <main className="min-h-screen flex flex-col items-center justify-center p-8">
