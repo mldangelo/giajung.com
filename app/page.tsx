@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const mapLanguage = (language: string) => {
   if (language.toLowerCase().includes('en')) return 'EN';
@@ -41,18 +41,28 @@ export default function Index() {
 
   const [clicked, setClicked]: [boolean, Function] = useState(false);
 
-  const preferredLanguage = mapLanguage(window.localStorage.getItem('language') || window.navigator.language);
-  const [l, setLanguage]: [string, Function] = useState(preferredLanguage || 'EN');
+  const [l, setLanguage] = useState('EN'); // Default to 'EN'
+
+  useEffect(() => {
+    // This code will run only in the browser
+    const storedLanguage = window.localStorage.getItem('language') || window.navigator.language;
+    const preferredLanguage = mapLanguage(storedLanguage);
+    setLanguage(preferredLanguage);
+  }, []);
 
   const handleSetLanguage = (language: string) => {
     setLanguage(language);
-    window.localStorage.setItem('language', language);
-  }
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('language', language);
+    }
+  };
 
   const setCategory = (category: string) => {
-    window.sessionStorage.setItem('category', category);
-    window.location.href = `/about`;
-  }
+    if (typeof window !== 'undefined') {
+      window.sessionStorage.setItem('category', category);
+      window.location.href = `/about`;
+    }
+  };
 
   return (
     <div className="bg-white p-10 text-gray-800">
