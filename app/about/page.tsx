@@ -2,6 +2,8 @@
 
 import Head from 'next/head'
 import { useState } from 'react'
+import LanguageSelector from '../languageSelector';
+import Link from 'next/link'
 
 const summary = `Gia Jung is a computational designer and software engineer based in New York City.
  She likes to eat food and floss her teeth. She also likes hula hooping and playing with other people's dogs.
@@ -11,14 +13,18 @@ const summary = `Gia Jung is a computational designer and software engineer base
 export default function Home() {
 
     const [selectedCategory, setSelectedCategory]: [string | undefined, Function] = useState();
+    const [l, setLanguage] = useState('EN'); // Default to 'EN'
 
   return (
-    <div className="bg-white">
+    <div className="bg-white p-10 text-gray-800">
       <Head>
         <title>Learn About Gia</title>
       </Head>
-      
-      <main className="min-h-screen flex flex-col items-center justify-center p-8">
+      <LanguageSelector onLanguageChange={setLanguage} />
+      <div className="float-left fixed top-0 left-0 p-4">
+        <Link href='/'>🏠</Link>
+      </div>
+      <main className="flex flex-col items-center justify-center min-h-screen bg-white p-10 text-gray-800">
         <h1 className="text-2xl font-bold text-gray-800">Generative Gia</h1>
 
         <div className="my-8 w-full md:w-2/3 lg:w-1/2 h-64 bg-gray-100 border-dashed border-2 border-gray-300">
