@@ -46,7 +46,7 @@ export default function Index() {
   useEffect(() => {
     // This code will run only in the browser
     const storedLanguage = window.localStorage.getItem('language') || window.navigator.language;
-    const preferredLanguage = mapLanguage(storedLanguage);
+    const preferredLanguage = mapLanguage(storedLanguage) || 'EN';
     setLanguage(preferredLanguage);
   }, []);
 
