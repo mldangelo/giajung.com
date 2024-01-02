@@ -54,32 +54,16 @@ export default function About() {
           <h1 className="text-3xl font-semibold text-gray-800 mb-4">
             {translations[language].title}
           </h1>
-          {(translations[language].about as string[]).map(
-            (paragraph, index) => (
-              <p
-                key={index}
-                className="text-base text-gray-700 leading-relaxed mb-4"
-              >
-                {paragraph}
-              </p>
-            ),
-          )}
+          {(translations[language].about as string[]).map((paragraph) => (
+            <p
+              key={paragraph}
+              className="text-base text-gray-700 leading-relaxed mb-4"
+            >
+              {paragraph}
+            </p>
+          ))}
         </article>
       </main>
-
-      <footer className="absolute bottom-4 text-center w-full m-0">
-        <p className="text-sm">
-          {`© ${new Date().getFullYear()} `}
-          <a
-            href="https://www.linkedin.com/in/giajung/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-gray-600"
-          >
-            {translations[language].name}
-          </a>
-        </p>
-      </footer>
     </div>
   );
 }

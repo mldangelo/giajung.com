@@ -13,39 +13,37 @@ interface Categories {
   romantic: string;
 }
 
-export default function Index() {
-  const t: { [key: string]: { [key: string]: string | Categories } } = {
-    EN: {
-      name: "Gia Jung",
-      question: "In what context do you know Gia?",
-      email: "hi",
-      categories: {
-        "i don't": "I Don't",
-        family: "Family",
-        friend: "Friend",
-        other: "Other",
-        professional: "Professional",
-        romantic: "Romantic",
-      },
+const t: { [key: string]: { [key: string]: string | Categories } } = {
+  EN: {
+    name: "Gia Jung",
+    question: "In what context do you know Gia?",
+    email: "hi",
+    categories: {
+      "i don't": "I Don't",
+      family: "Family",
+      friend: "Friend",
+      other: "Other",
+      professional: "Professional",
+      romantic: "Romantic",
     },
-    한글: {
-      name: "정지아",
-      question: "지아를 어떤 상황에서 알고 계신가요?",
-      email: "안녕하세요",
-      categories: {
-        "i don't": "모르시겠어요",
-        family: "가족",
-        friend: "친구",
-        other: "기타",
-        professional: "직장",
-        romantic: "연인",
-      },
+  },
+  한글: {
+    name: "정지아",
+    question: "지아를 어떤 상황에서 알고 계신가요?",
+    email: "안녕하세요",
+    categories: {
+      "i don't": "모르시겠어요",
+      family: "가족",
+      friend: "친구",
+      other: "기타",
+      professional: "직장",
+      romantic: "연인",
     },
-  };
+  },
+};
 
+export default function Index({ language: l = "EN" }: { language: string }) {
   const [clicked, setClicked]: [boolean, Function] = useState(false);
-
-  const [l, setLanguage] = useState("EN"); // Default to 'EN'
 
   const setCategory = (category: string) => {
     if (typeof window !== "undefined") {
@@ -68,7 +66,6 @@ export default function Index() {
         />
       </Head>
       <main className="flex flex-col items-center justify-center min-h-screen bg-white p-10 text-gray-800">
-        <LanguageSelector onLanguageChange={setLanguage} />
         {!clicked ? (
           <h1 className="text-4xl mb-2 font-bold">
             <button
@@ -103,19 +100,6 @@ export default function Index() {
             {t[l].email as string}@giajung.com
           </a>
         </p>
-        <footer className="absolute bottom-4">
-          <p className="text-sm">
-            {`© ${new Date().getFullYear()} `}
-            <a
-              href="https://www.linkedin.com/in/giajung/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-gray-600"
-            >
-              {t[l].name as string}
-            </a>
-          </p>
-        </footer>
       </main>
     </div>
   );
