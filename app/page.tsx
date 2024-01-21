@@ -9,6 +9,7 @@ interface Categories {
   family: string;
   friend: string;
   other: string;
+  cats: string;
   professional: string;
   romantic: string;
 }
@@ -24,6 +25,7 @@ export default function Index() {
         family: "Family",
         friend: "Friend",
         other: "Other",
+        cats: "Cats",
         professional: "Professional",
         romantic: "Romantic",
       },
@@ -37,6 +39,7 @@ export default function Index() {
         family: "가족",
         friend: "친구",
         other: "기타",
+        cats: "고양이",
         professional: "직장",
         romantic: "연인",
       },
@@ -52,6 +55,8 @@ export default function Index() {
       window.sessionStorage.setItem("category", category);
       if (category === "family") {
         window.location.href = `/family`;
+      } else if (category === "cats") {
+        window.location.href = `/cats`;
       } else {
         window.location.href = `/about`;
       }

@@ -56,7 +56,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
         return (
           <>
             <button
-              key={lang}
+              key={`${lang}-button`}
               className={`hover:text-gray-600 ${
                 language === lang ? "font-bold" : ""
               }`}
