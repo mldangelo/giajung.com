@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import LanguageSelector from "../languageSelector";
@@ -43,6 +43,17 @@ export default function Home() {
   }[];
 
   const [backgroundImage, setBackgroundImage] = useState(images[0].src);
+  const [isTextBoxVisible, setIsTextBoxVisible] = useState(true);
+
+  const handleImageInteraction = (image: string) => {
+    setBackgroundImage(image);
+    setIsTextBoxVisible(false); // Set opacity to 0 for fading effect
+  };
+
+  const handleLanguageChange = (newLanguage: string) => {
+    setLanguage(newLanguage);
+    setIsTextBoxVisible(true); // Reset opacity to 1
+  };
 
   return (
     <div
@@ -60,22 +71,38 @@ export default function Home() {
         </title>
         <meta name="description" content="Gallery of Cat Illustrations" />
         <link rel="icon" href="/favicon.ico" />
+        <style jsx global>{`
+          body {
+            transition: background-image 0.5s ease-in-out;
+          }
+          .hidden-text-box {
+            opacity: 0;
+            visibility: hidden;
+          }
+          .visible-text-box {
+            opacity: 1;
+            visibility: visible;
+            transition:
+              opacity 0.5s ease-in-out,
+              visibility 0.5s ease-in-out;
+          }
+        `}</style>
       </Head>
       <div className="float-left fixed top-0 left-0 p-4">
         <Link href="/">🏠 {language === "EN" ? "Home" : "홈"}</Link>
       </div>
 
       <main className="p-5">
-        <LanguageSelector onLanguageChange={setLanguage} />
+        <LanguageSelector onLanguageChange={handleLanguageChange} />
         <h1 className="text-center text-2xl font-bold mb-5">
           {translations[language].title as string}
         </h1>
-        <div className="flex justify-center gap-5">
+        <div className="flex flex-wrap justify-center gap-5">
           {images.map((image, index) => (
             <div
               key={index}
-              onClick={() => setBackgroundImage(image.src)}
-              className="cursor-pointer shadow-lg rounded-lg"
+              onClick={() => handleImageInteraction(image.src)}
+              className="cursor-pointer shadow-lg rounded-lg hover:shadow-2xl transition-shadow duration-300 hover:scale-105"
             >
               <img
                 src={image.src}
@@ -89,8 +116,9 @@ export default function Home() {
           ))}
         </div>
       </main>
-
-      <section className="bg-white p-5 flex flex-col items-center w-1/2 mx-auto rounded-lg shadow-lg">
+      <section
+        className={`bg-white p-5 flex flex-col items-center w-full md:w-1/2 mx-auto rounded-lg shadow-lg ${isTextBoxVisible ? "visible-text-box" : "hidden-text-box"}`}
+      >
         <p className="text-center text-lg text-gray-800">
           {translations[language].description as string}
         </p>
